@@ -25,6 +25,8 @@ function main () {
   const initOverlay = function () {
     contrastSlider.value = state.openedVideo.contrast;
     brightnessSlider.value = state.openedVideo.brightness;
+    updateContrastIndicator();
+    updateBrightnessIndicator();
     // volumeSlider.value = state.openedVideo.volume;
 
     setTimeout(() => {
@@ -40,13 +42,25 @@ function main () {
     overlay.classList.add('hidden');
   };
 
-  contrastSlider.addEventListener('input', () => {
-    contrastIndicator.textContent = contrastSlider.value + '%';
-  });
 
-  brightnessSlider.addEventListener('input', () => {
+  const updateBrightnessIndicator = () => {
+
     brightnessIndicator.textContent = brightnessSlider.value + '%';
+  };
+  brightnessSlider.addEventListener('input', () => {
+    state.openedVideo.brightness = brightnessSlider.value;
+    updateBrightnessIndicator();
   });
+  // brightnessSlider.addEventListener('change', updateBrightnessIndicator);
+
+  const updateContrastIndicator = () => {
+    contrastIndicator.textContent = contrastSlider.value + '%';
+  };
+  contrastSlider.addEventListener('input', () => {
+    state.openedVideo.contrast = contrastSlider.value;
+    updateContrastIndicator();
+  });
+  // contrastSlider.addEventListener('change', updateContrastIndicator);
 
   // Close active video and return to tiles
   allVideosBtn.addEventListener('click', () => {
@@ -68,8 +82,9 @@ function main () {
       event.preventDefault();
 
       if (!state.openedVideo) {
-        video.style.zIndex = '1';
         const bClientRect = video.getBoundingClientRect();
+        video.style.transformOrigin = `${-bClientRect.x}px ${-bClientRect.y}px`;
+        video.style.zIndex = '1';
         let translate = {x: 0, y: 0};
 
         translate.x = -bClientRect.x;
