@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=yes, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="robots" content="noindex">
+  <title>Мультимедиа</title>
+</head>
+<body>
+<main class="wrapper">
+  <div class="overlay hidden">
+    <button class="all-cameras-btn ">Все камеры</button>
+    <fieldset class="field-set">
+      <div>
+        <label for="brightness-slider">Яркость: </label><span id="brightness-value">200</span>
+      </div>
+      <input type="range" id="brightness-slider" name="brightness" min="0" max="200" step="1">
+      <div>
+        <label for="contrast-slider">Контраст: </label><span id="contrast-value">200</span>
+      </div>
+      <input type="range" id="contrast-slider" name="contrast" min="0" max="200" step="1">
+    </fieldset>
+  </div>
+
+  <div class="tiles">
+    <div class="video-container">
+      <div class="video" style="background-color: black">
+        <video id="video-1" muted autoplay></video>
+      </div>
+    </div>
+    <div class="video-container">
+      <div class="video" style="background-color: coral">
+        <video id="video-2" muted autoplay></video>
+      </div>
+    </div>
+    <div class="video-container">
+      <div class="video" style="background-color: cornflowerblue">
+        <video id="video-3" muted autoplay></video>
+      </div>
+    </div>
+    <div class="video-container">
+      <div class="video" style="background-color: gold">
+        <video id="video-4" muted autoplay></video>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="js/index.js"></script>
+</body>
+</html>
