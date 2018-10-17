@@ -2,6 +2,7 @@
 import classes from '../scss/style.scss';
 import initVideo from './initVideo';
 import VideoModel from './VideoModel';
+import { state } from './state';
 
 function main () {
 
@@ -16,16 +17,8 @@ function main () {
   const contrastSlider = document.querySelector('#contrast-slider');
   const contrastIndicator = document.querySelector('#contrast-value');
 
-  // init state
-  const state = {
-    openedVideo: null,
-    videos: []
-  };
-
   videos.forEach(video => {
     video.style.transition = 'transform ease-out ' + animationTime + 'ms';
-    const bClientRect = video.getBoundingClientRect();
-    video.style.transformOrigin = `${-bClientRect.x}px ${-bClientRect.y}px`;
     state.videos.push(new VideoModel(video));
   });
 
