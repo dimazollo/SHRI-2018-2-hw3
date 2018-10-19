@@ -4,12 +4,8 @@ body {
   display: flex;
 }
 
-html, body {
-  box-sizing: border-box;
-}
-
 * {
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 .wrapper {
@@ -23,7 +19,7 @@ html, body {
   flex-wrap: wrap;
 
   .video-container {
-    border: 1px solid white;
+    //border: 10px solid white;
     width: 50%;
     position: relative;
   }
@@ -33,20 +29,29 @@ html, body {
     background-color: black;
     width: 100%;
     height: 100%;
-    display: flex;
+
     align-items: center;
     transform-origin: left top;
 
     & > video {
       width: 100%;
+      height: 100%;
     }
   }
 }
 
+// styles for block of control elements in overlay
+@mixin overlay-block() {
+  background: rgba(143, 143, 143, 0.3);
+  border: 1px solid #DADADA;
+  border-radius: 8px;
+}
 
 .overlay {
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+
   position: absolute;
-  //background: white;
   z-index: 10;
   width: 100%;
   height: 100vh;
@@ -70,19 +75,32 @@ html, body {
   }
 
   .field-set {
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
-
     position: absolute;
     display: flex;
     flex-direction: column;
     bottom: 20px;
     right: 20px;
-    background: rgba(143, 143, 143, 0.3);
-    border: 1px solid #DADADA;
+
+    @include overlay-block();
 
     & > label {
       display: inline-block;
+    }
+  }
+
+  .volume-level {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    padding: 10px;
+
+    @include overlay-block();
+
+    .bar {
+      width: 50vw;
+      height: 15px;
+      transition: all linear 100ms;
+      transform-origin: left bottom;
     }
   }
 }

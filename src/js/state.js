@@ -1,4 +1,4 @@
 export const state = {
-  openedVideo: null,
-  videos: []
+  openedTile: null,
+  videoTiles: []
 };
