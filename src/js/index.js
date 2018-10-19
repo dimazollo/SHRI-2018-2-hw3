@@ -6,8 +6,6 @@ import {state} from './state';
 import {animateClose, animateOpen, animationTime} from './animation';
 
 function main() {
-
-
   const videoTiles = document.querySelectorAll('.video');
   const overlay = document.querySelector('.overlay');
   const allVideosBtn = document.querySelector('.overlay .all-cameras-btn');
