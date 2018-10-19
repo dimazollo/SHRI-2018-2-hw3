@@ -35,13 +35,16 @@ function main () {
   };
 
   const closeOverlay = function() {
-    state.openedVideo.contrast = contrastSlider.value;
-    state.openedVideo.brightness = brightnessSlider.value;
-    // state.openedVideo.volume = volumeSlider.value;
-
+    animateClose();
     overlay.classList.add('hidden');
   };
 
+  initVideos();
+
+  // Web audio api part
+  // Init web audio context and configure nodes
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioCtx = new AudioContext();
 
   const updateBrightnessIndicator = () => {
 
@@ -64,64 +67,13 @@ function main () {
 
   // Close active video and return to tiles
   allVideosBtn.addEventListener('click', () => {
-    if (state.openedVideo) {
-      state.openedVideo.domNode.style.transform = '';
-      setTimeout(() => {
-        state.openedVideo.domNode.style.zIndex = '0';
-        state.openedVideo = null;
-      }, animationTime);
-
+    if (state.openedTile) {
       closeOverlay();
+      state.openedTile.videoElement.muted = true;
+      state.openedTile.videoElement.removeEventListener('canplay', stopAudioProcess);
+      stopAudioProcess();
     }
   });
-
-
-  // Open video
-  videos.forEach(video => {
-    video.addEventListener('click', event => {
-      event.preventDefault();
-
-      if (!state.openedVideo) {
-        const bClientRect = video.getBoundingClientRect();
-        video.style.transformOrigin = `${-bClientRect.x}px ${-bClientRect.y}px`;
-        video.style.zIndex = '1';
-        let translate = {x: 0, y: 0};
-
-        translate.x = -bClientRect.x;
-        translate.y = -bClientRect.y;
-
-        let scale = {x: 1.0, y: 1.0};
-        scale.x = window.innerWidth / bClientRect.width;
-        scale.y = window.innerHeight / bClientRect.height;
-
-        state.openedVideo = state.videos.filter(item => item.domNode === video)[0];
-        video.style.transform = `scale(${scale.x}, ${scale.y}) translate(${translate.x}px, ${translate.y}px)`;
-        video.classList.toggle('full-size');
-
-        initOverlay();
-      }
-    });
-  });
-
-  initVideo(
-    document.getElementById('video-1'),
-    'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fsosed%2Fmaster.m3u8'
-  );
-
-  initVideo(
-    document.getElementById('video-2'),
-    'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fcat%2Fmaster.m3u8'
-  );
-
-  initVideo(
-    document.getElementById('video-3'),
-    'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fdog%2Fmaster.m3u8'
-  );
-
-  initVideo(
-    document.getElementById('video-4'),
-    'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fhall%2Fmaster.m3u8'
-  );
 }
 
 main();
