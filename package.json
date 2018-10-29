@@ -6,7 +6,7 @@
   "author": "Dmitry Volovod",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint ./src/js",
+    "lint": "tslint ./src/js",
     "build": "rimraf ./docs && parcel build --no-source-maps --no-cache -d docs ./src/index.html",
     "start": "parcel ./src/index.html"
   },
